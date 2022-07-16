@@ -1,0 +1,31 @@
+About:
+
+The unbed program rewrites selector expressions to avoid implicit embedded field
+traversals. For example, given:
+
+	type T struct { U }
+	type U struct { f int }
+	var x T
+
+unbed can automatically rewrite all expressions "x.f" to "x.U.f".
+
+Installation:
+
+	$ go install github.com/blazingxforger/unbed@latest
+
+Usage:
+
+Unbed takes a single command-line argument specifying the
+package-scoped named struct type and embedded field to rewrite.
+
+	$ unbed '"cmd/internal/obj".LSym.FuncInfo'
+	Rewrote 161 selections in 20 files in 9 packages.
+
+Similar to gorename, quotes may be omitted for single-segment package
+paths like "fmt".
+
+Caveats:
+
+Unbed is alpha quality.
+
+Unbed should support specifying function-scoped and anonymous structs.
